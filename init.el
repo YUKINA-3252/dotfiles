@@ -23,9 +23,6 @@
 (global-unset-key "\C-o" )
 (setq rosdistro (getenv "ROS_DISTRO"))
 (add-to-list 'load-path (format "/opt/ros/%s/share/emacs/site-lisp" (or rosdistro "melodic")))
-(require 'rosemacs)
-(invoke-rosemacs)
-(global-set-key "\C-x\C-r" ros-keymap)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -119,12 +116,6 @@
   (add-to-list 'auto-mode-alist '("¥¥.yml$" . yaml-mode)))
 ;;;================================================
 
-;;; euslime
-(add-to-list 'load-path "/opt/ros/melodic/share/euslime")
-(require 'euslime-config)
-(setq inferior-euslisp-program "roseus")
-(slime-setup '(slime-fancy slime-banner slime-repl-ansi-color))
-
 ;;; company-mode
 ;; (require 'company)
 ;; (global-company-mode +1)
@@ -202,15 +193,13 @@
  ;; If there is more than one, they won't work right.
  )
 
-;;; flycheck
-(global-flycheck-mode +1)
 ;;; undo-tree
 (defun x-clipboard-copy ()
   (interactive)
   (when (region-active-p)
-    (shell-command-on-region (region-beginning) (region-end) "xsel -ib" nil nil)))(global-undo-tree-mode +1)
+    (shell-command-on-region (region-beginning) (region-end) "xsel -ib" nil nil)))
 
-(require 'xclip)
-(xclip-mode 1)
+;; (require 'xclip)
+;; (xclip-mode 1)
 
 (setq-default tab-width 4)
